@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Portafolio de evidencias</title>
+  <style>
+    :root {
+      --fondo: #f5f7fa;
+      --tarjeta: #ffffff;
+      --texto: #1f2933;
+      --suave: #52606d;
+      --acento: #1a5fb4;
+      --borde: #d9e0e7;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: var(--fondo);
+      color: var(--texto);
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 32px 20px;
+      line-height: 1.6;
+    }
+    header {
+      background: var(--acento);
+      color: #fff;
+      padding: 24px 28px;
+      border-radius: 8px;
+      margin-bottom: 24px;
+    }
+    h1 { margin: 0; font-size: 2rem; }
+    .materia { margin: 4px 0 0; opacity: 0.9; }
+    .nombre { margin: 16px 0 0; }
+    .contenido { display: flex; gap: 24px; align-items: flex-start; }
+    nav {
+      width: 180px;
+      flex-shrink: 0;
+      position: sticky;
+      top: 20px;
+      background: var(--tarjeta);
+      border: 1px solid var(--borde);
+      border-radius: 8px;
+      padding: 16px;
+    }
+    nav h2 { margin: 0 0 8px; font-size: 1.1rem; }
+    nav ul { list-style: none; margin: 0; padding: 0; }
+    nav a {
+      display: block;
+      padding: 8px 10px;
+      border-radius: 6px;
+      color: var(--texto);
+      text-decoration: none;
+    }
+    nav a:hover, nav a:focus-visible, nav a.activo { background: #e8f0fb; color: var(--acento); }
+    main { flex: 1; min-width: 0; }
+    section {
+      background: var(--tarjeta);
+      border: 1px solid var(--borde);
+      border-radius: 8px;
+      padding: 20px 24px;
+      margin-bottom: 16px;
+      scroll-margin-top: 20px;
+    }
+    section h2 { margin: 0 0 8px; color: var(--acento); font-size: 1.3rem; }
+    section h3 { margin: 16px 0 4px; font-size: 1.05rem; }
+    section p { margin: 0; color: var(--suave); }
+    a { color: var(--acento); }
+
+    /* Trabajos */
+    .trabajo {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      padding: 14px 0;
+      border-top: 1px solid var(--borde);
+    }
+    .trabajo:first-of-type { margin-top: 12px; }
+    .trabajo img {
+      width: 150px;
+      height: 94px;
+      object-fit: cover;
+      border-radius: 6px;
+      border: 1px solid var(--borde);
+      display: block;
+      flex-shrink: 0;
+    }
+    .trabajo h3 { margin: 0; }
+    .trabajo h3 a { text-decoration: none; }
+    .trabajo h3 a:hover { text-decoration: underline; }
+    .fecha { font-size: 0.85rem; color: var(--suave); }
+    .trabajo p {
+      margin-top: 2px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    @media (max-width: 600px) {
+      .contenido { flex-direction: column; gap: 16px; }
+      nav { width: 100%; position: static; }
+      .trabajo { flex-direction: column; align-items: flex-start; }
+      .trabajo img { width: 100%; height: 150px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Portafolio de evidencias</h1>
+    <p class="materia">Materia: Desarrollo Web Básico</p>
+    <p class="nombre"><strong>Nombre:</strong> Guerrero Méndez Raúl</p>
+  </header>
+
+  <div class="contenido">
+  <nav>
+    <h2>Índice</h2>
+    <ul>
+      <li><a href="#perfil">Perfil</a></li>
+      <li><a href="#parcial1">Parcial 1</a></li>
+      <li><a href="#parcial2">Parcial 2</a></li>
+      <li><a href="#parcial3">Parcial 3</a></li>
+      <li><a href="#conclusion">Conclusión</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <section id="perfil">
+      <h2>Perfil profesional</h2>
+      <p>ESCRIBE AQUÍ tu perfil profesional: qué estudias, en qué te quieres especializar y qué habilidades tienes.</p>
+      <h3>¿Por qué creé este portafolio?</h3>
+      <p>ESCRIBE AQUÍ la razón por la que creaste el portafolio.</p>
+    </section>
+
+    <section id="parcial1">
+      <h2>Parcial 1</h2>
+      <p>Aquí van las evidencias del primer parcial.</p>
+
+
+      <article class="trabajo">
+        <a href="1er_parcial/practica_0_parcial/practica0parcial.html"><img src="1er_parcial/practica_0_parcial/captura.jpeg" alt="Página del 1er parcial"></a>
+        <div>
+          <h3><a href="1er_parcial/practica_0_parcial/practica0parcial.html">Página 1er parcial</a></h3>
+          <span class="fecha">Creación: <time datetime="2026-09-04">04/09/2026</time></span>
+          <p>Página inicial con etiquetas de encabezado (h1, h2, h3) y atributos de estilo para cambiar el color y la posición del texto.</p>
+        </div>
+      </article>
+
+      <article class="trabajo">
+        <a href="1er_parcial/practica_1_html/practica1.html"><img src="1er_parcial/practica_1_html/captura.jpeg" alt="Práctica 1 HTML inicio"></a>
+        <div>
+          <h3><a href="1er_parcial/practica_1_html/practica1.html">Práctica 1. HTML inicio</a></h3>
+          <span class="fecha">Creación: <time datetime="2026-09-11">11/09/2026</time></span>
+          <p>Documento HTML con su estructura básica (html y body) y un pie de página con los datos del autor.</p>
+        </div>
+      </article>
+
+      <article class="trabajo">
+        <a href="1er_parcial/practica_2_css/practica2.html"><img src="1er_parcial/practica_2_css/captura.jpeg" alt="Práctica 2 CSS"></a>
+        <div>
+          <h3><a href="1er_parcial/practica_2_css/practica2.html">Práctica 2. CSS</a></h3>
+          <span class="fecha">Creación: <time datetime="2026-09-18">18/09/2026</time></span>
+          <p>Uso de las etiquetas ul, ol y table, junto con strong, em y br, para estructurar y dar formato al contenido de la página.</p>
+        </div>
+      </article>
+
+      <article class="trabajo">
+        <a href="1er_parcial/practica_3_imagenes/practica3.html"><img src="1er_parcial/practica_3_imagenes/captura.jpeg" alt="Práctica 3 imágenes y diseño responsive"></a>
+        <div>
+          <h3><a href="1er_parcial/practica_3_imagenes/practica3.html">Práctica 3. Imágenes y diseño responsive</a></h3>
+          <span class="fecha">Creación: <time datetime="2026-09-25">25/09/2026</time></span>
+          <p>Inserción de imágenes con img y uso de picture con source para mostrar una imagen distinta según el ancho de la pantalla.</p>
+        </div>
+      </article>
+
+      <article class="trabajo">
+        <a href="1er_parcial/practica_4_css_avanzado/practica4.html"><img src="1er_parcial/practica_4_css_avanzado/captura.jpeg" alt="Práctica 4 CSS avanzado"></a>
+        <div>
+          <h3><a href="1er_parcial/practica_4_css_avanzado/practica4.html">Práctica 4. CSS avanzado</a></h3>
+          <span class="fecha">Creación: <time datetime="2026-10-04">04/10/2026</time></span>
+          <p>Tarjetas diseñadas con CSS avanzado (degradados, sombras y transiciones) que reaccionan al pasar el mouse con la pseudoclase :hover.</p>
+        </div>
+      </article>
+
+      <article class="trabajo">
+        <a href="1er_parcial/proyecto_1er_parcial/index.html"><img src="1er_parcial/proyecto_1er_parcial/captura.jpeg" alt="Proyecto 1er parcial Clean Car"></a>
+        <div>
+          <h3><a href="1er_parcial/proyecto_1er_parcial/index.html">Proyecto 1er parcial. Clean Car</a></h3>
+          <span class="fecha">Creación: <time datetime="2026-10-09">09/10/2026</time></span>
+          <p>Sitio web de la estética Clean Car con HTML semántico y CSS: menú, portada con imagen, listas, tabla de servicios y datos de contacto.</p>
+        </div>
+      </article>
+    </section>
+
+    <section id="parcial2">
+      <h2>Parcial 2</h2>
+      <p>Aquí van las evidencias del segundo parcial.</p>
+
+      <article class="trabajo">
+        <a href="2do_parcial/cambio_atributos/cambio_de_color.html"><img src="2do_parcial/cambio_atributos/happy_emogi.jpg" alt="Práctica 1 cambio de colores"></a>
+        <div>
+          <h3><a href="2do_parcial/cambio_atributos/cambio_de_color.html">Práctica 1. Cambio de colores</a></h3>
+          <span class="fecha">Creación: <time datetime="2026-10-30">30/10/2026</time></span>
+          <p>Cambio de colores de la página con JavaScript.</p>
+        </div>
+      </article>
+
+      <article class="trabajo">
+        <a href="2do_parcial/formulario/formulario.html"><img src="2do_parcial/captura.jpg" alt="Proyecto 2do parcial"></a>
+        <div>
+          <h3><a href="2do_parcial/formulario/formulario.html">Proyecto del 2do parcial. Formulario</a></h3>
+          <span class="fecha">Creación: <time datetime="2026-11-13">13/11/2026</time></span>
+          <p>DESCRIBE aquí tu proyecto en máximo dos renglones.</p>
+        </div>
+      </article>
+    </section>
+
+    <section id="parcial3">
+      <h2>Parcial 3</h2>
+      <p>Aquí van las evidencias del tercer parcial.</p>
+
+      <article class="trabajo">
+        <a href="calculadora/index.html"><img src="img/calculadora.png" alt="Calculadora"></a>
+        <div>
+          <h3><a href="calculadora/index.html">Calculadora</a></h3>
+          <span class="fecha">Creación: <time datetime="2026-11-17">17/11/2026</time></span>
+          <p>Calculadora con suma, resta, multiplicación y división en JavaScript.</p>
+        </div>
+      </article>
+    </section>
+
+    <section id="conclusion">
+      <h2>Conclusión</h2>
+      <h3>Reflexión sobre el trabajo desarrollado</h3>
+      <p>ESCRIBE AQUÍ con tus propias palabras.</p>
+      <h3>Problemas que enfrenté y cómo los solucioné</h3>
+      <p>ESCRIBE AQUÍ con tus propias palabras.</p>
+      <h3>Aprendizaje obtenido</h3>
+      <p>ESCRIBE AQUÍ con tus propias palabras.</p>
+    </section>
+  </main>
+  </div>
+
+  <script>
+    // Imagen de respaldo si aún no existe la captura del trabajo
+    document.querySelectorAll('.trabajo img').forEach(function (img) {
+      img.addEventListener('error', function () {
+        var texto = img.alt.slice(0, 28);
+        img.src = 'data:image/svg+xml;utf8,' + encodeURIComponent(
+          '<svg xmlns="http://www.w3.org/2000/svg" width="300" height="188">' +
+          '<rect width="100%" height="100%" fill="#e8f0fb"/>' +
+          '<text x="50%" y="50%" text-anchor="middle" fill="#1a5fb4" ' +
+          'font-family="Arial" font-size="15">' + texto + '</text></svg>');
+      }, { once: true });
+    });
+
+    // Resalta en el índice la sección que se está viendo
+    var enlaces = document.querySelectorAll('nav a');
+    var observador = new IntersectionObserver(function (entradas) {
+      entradas.forEach(function (e) {
+        if (e.isIntersecting) {
+          enlaces.forEach(function (a) {
+            a.classList.toggle('activo', a.getAttribute('href') === '#' + e.target.id);
+          });
+        }
+      });
+    }, { rootMargin: '-30% 0px -60% 0px' });
+    document.querySelectorAll('main section').forEach(function (s) { observador.observe(s); });
+  </script>
+</body>
+</html>
