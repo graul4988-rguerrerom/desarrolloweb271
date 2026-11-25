@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Cotización de servicios | Clean Car</title>
+        <meta name="description" content="Cotiza los servicios de estética automotriz de Clean Car: lavado, detallado, pulido, faros y protección de pintura.">
+        <meta name="author" content="Raúl Guerrero M.">
+        <link rel="stylesheet" href="estilos.css">
+    </head>
+
+    <body id="inicio">
+        <header class="menu-principal">
+            <nav aria-label="Navegación principal">
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="index.html#servicios">Servicios</a></li>
+                    <li><a href="index.html#contacto">Contacto</a></li>
+                    <li><a href="cotizacion.html">Cotizar</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <section class="portada" aria-labelledby="titulo-principal">
+                <h1 id="titulo-principal">Cotización</h1>
+                <p class="eslogan">Clean Car · Estética Automotriz</p>
+            </section>
+
+            <section aria-labelledby="titulo-form">
+                <div class="contenedor">
+                    <h2 id="titulo-form">Cotiza tus servicios</h2>
+
+                    <div id="confirmacion" class="confirmacion" role="status" hidden></div>
+
+                    <form id="formCotizacion" class="formulario" novalidate>
+                        <fieldset>
+                            <legend>Datos del cliente</legend>
+                            <div class="campo">
+                                <label for="nombre">Nombre completo</label>
+                                <input type="text" id="nombre" name="nombre" placeholder="Ej. Juan Pérez López">
+                                <p class="error" id="error-nombre"></p>
+                            </div>
+                            <div class="campo">
+                                <label for="email">Correo electrónico</label>
+                                <input type="email" id="email" name="email" placeholder="correo@ejemplo.com">
+                                <p class="error" id="error-email"></p>
+                            </div>
+                            <div class="campo">
+                                <label for="vehiculo">Vehículo (marca y modelo)</label>
+                                <input type="text" id="vehiculo" name="vehiculo" placeholder="Ej. Porsche 911">
+                                <p class="error" id="error-vehiculo"></p>
+                            </div>
+                        </fieldset>
+
+                        <fieldset>
+                            <legend>Servicios a cotizar</legend>
+                            <div id="productos"></div>
+                            <div class="acciones">
+                                <button type="button" class="boton" id="agregar">+ Agregar otro servicio</button>
+                            </div>
+                        </fieldset>
+
+                        <p class="total">Total de la cotización: <span id="total">$0.00</span> MXN</p>
+
+                        <div class="acciones">
+                            <button type="submit" class="boton principal">Enviar cotización</button>
+                            <button type="button" class="boton peligro" id="cancelar">Cancelar cotización</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <div class="pie">
+                <img src="logo-uniq.png" alt="Logotipo de la Universidad Internacional de Querétaro (UNIQ)" width="364" height="169">
+                <div>
+                    <br>
+                    <i><strong> Alumno: Guerrero Méndez Raúl</strong></i>
+                    <br>
+                    <i>Materia: DESARROLLO WEB BÁSICO </i>
+                    <br>
+                    <i>Maestra: Cervantes Ledesma Ma. de los Angeles </i>
+                    <br>
+                    <i>Carrera: Ingeniería en sistemas computacionales </i>
+                    <br>
+                    <i>Proyecto escolar · Universidad Internacional de Querétaro (UNIQ)</i>
+                    <br>
+                    <p><em><a href="mailto:cleancar@brilloauto.com">cleancar@brilloauto.com</a></em></p>
+                </div>
+            </div>
+        </footer>
+
+        <script>
+            // Precios de ejemplo (puedes cambiarlos)
+            const SERVICIOS = {
+                lavado:   { nombre: "Lavado exterior e interior", precio: 250 },
+                detallado:{ nombre: "Detallado completo",         precio: 1200 },
+                pulido:   { nombre: "Pulido y encerado",          precio: 900 },
+                faros:    { nombre: "Restauración de faros",      precio: 600 },
+                motor:    { nombre: "Limpieza de motor",          precio: 350 },
+                pintura:  { nombre: "Protección de pintura",      precio: 1500 }
+            };
+            // Atributos opcionales (checkbox) con costo extra por unidad
+            const ATRIBUTOS = {
+                cera:   { nombre: "Cera premium",       precio: 150 },
+                aroma:  { nombre: "Aromatizante",       precio: 50 },
+                llantas:{ nombre: "Brillo de llantas",  precio: 80 },
+                garantia:{ nombre: "Garantía extendida", precio: 200 }
+            };
+
+            const contProductos = document.getElementById("productos");
+            const form = document.getElementById("formCotizacion");
+            const confirmacion = document.getElementById("confirmacion");
+            let contador = 0;
+
+            const dinero = n => n.toLocaleString("es-MX", { style: "currency", currency: "MXN" });
+
+            function agregarProducto() {
+                contador++;
+                const id = contador;
+                const opciones = Object.entries(SERVICIOS)
+                    .map(([k, s]) => `<option value="${k}">${s.nombre} (${dinero(s.precio)})</option>`).join("");
+                const extras = Object.entries(ATRIBUTOS)
+                    .map(([k, a]) => `<label><input type="checkbox" class="attr" value="${k}"> ${a.nombre} (+${dinero(a.precio)})</label>`).join("");
+                const div = document.createElement("div");
+                div.className = "producto";
+                div.innerHTML = `
+                    <h3>Servicio <span class="num"></span></h3>
+                    <div class="fila">
+                        <div class="campo">
+                            <label for="servicio-${id}">Servicio</label>
+                            <select id="servicio-${id}" class="servicio">
+                                <option value="">-- Selecciona un servicio --</option>${opciones}
+                            </select>
+                            <p class="error err-servicio"></p>
+                        </div>
+                        <div class="campo">
+                            <label for="cantidad-${id}">Cantidad</label>
+                            <input type="number" id="cantidad-${id}" class="cantidad" value="1" min="1" max="99" step="1">
+                            <p class="error err-cantidad"></p>
+                        </div>
+                    </div>
+                    <div class="campo">
+                        <label>Atributos del servicio</label>
+                        <div class="extras">${extras}</div>
+                    </div>
+                    <p class="subtotal">Subtotal: <span class="sub">$0.00</span></p>
+                    <button type="button" class="boton peligro quitar">Quitar</button>`;
+                contProductos.appendChild(div);
+                renumerar();
+                calcular();
+            }
+
+            function renumerar() {
+                const lineas = contProductos.querySelectorAll(".producto");
+                lineas.forEach((l, i) => {
+                    l.querySelector(".num").textContent = i + 1;
+                    l.querySelector(".quitar").hidden = lineas.length <= 2; // mínimo 2
+                });
+            }
+
+            function precioLinea(l) {
+                const s = SERVICIOS[l.querySelector(".servicio").value];
+                const cant = parseInt(l.querySelector(".cantidad").value, 10);
+                if (!s || isNaN(cant) || cant < 1) return 0;
+                let unit = s.precio;
+                l.querySelectorAll(".attr:checked").forEach(c => unit += ATRIBUTOS[c.value].precio);
+                return unit * cant;
+            }
+
+            function calcular() {
+                let total = 0;
+                contProductos.querySelectorAll(".producto").forEach(l => {
+                    const sub = precioLinea(l);
+                    l.querySelector(".sub").textContent = dinero(sub);
+                    total += sub;
+                });
+                document.getElementById("total").textContent = dinero(total);
+                return total;
+            }
+
+            function marcar(campo, mensaje) {
+                const cont = campo.closest(".campo");
+                cont.classList.toggle("invalido", !!mensaje);
+                cont.querySelector(".error").textContent = mensaje;
+                return !mensaje;
+            }
+
+            function validar() {
+                let ok = true;
+                const nombre = document.getElementById("nombre");
+                const email = document.getElementById("email");
+                const vehiculo = document.getElementById("vehiculo");
+
+                const n = nombre.value.trim();
+                ok = marcar(nombre, !n ? "El nombre es obligatorio."
+                    : n.length < 3 ? "El nombre debe tener al menos 3 caracteres."
+                    : !/^[A-Za-zÁÉÍÓÚáéíóúÑñÜü\s.'-]+$/.test(n) ? "El nombre solo puede contener letras."
+                    : "") && ok;
+
+                const e = email.value.trim();
+                ok = marcar(email, !e ? "El correo es obligatorio."
+                    : !/^[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)*\.[A-Za-z]{2,}$/.test(e) ? "Escribe un correo válido (ej. correo@ejemplo.com)."
+                    : "") && ok;
+
+                ok = marcar(vehiculo, vehiculo.value.trim().length < 2 ? "Indica la marca y modelo de tu vehículo." : "") && ok;
+
+                contProductos.querySelectorAll(".producto").forEach(l => {
+                    const sel = l.querySelector(".servicio");
+                    const cant = l.querySelector(".cantidad");
+                    ok = marcar(sel, sel.value ? "" : "Selecciona un servicio.") && ok;
+                    const v = cant.value.trim();
+                    const num = Number(v);
+                    ok = marcar(cant, v === "" ? "La cantidad es obligatoria."
+                        : !Number.isInteger(num) ? "Debe ser un número entero."
+                        : num < 1 ? "La cantidad mínima es 1."
+                        : num > 99 ? "La cantidad máxima es 99."
+                        : "") && ok;
+                });
+                return ok;
+            }
+
+            function mostrarConfirmacion() {
+                const items = [];
+                contProductos.querySelectorAll(".producto").forEach(l => {
+                    const s = SERVICIOS[l.querySelector(".servicio").value];
+                    const extras = [...l.querySelectorAll(".attr:checked")].map(c => `${ATRIBUTOS[c.value].nombre} +${dinero(ATRIBUTOS[c.value].precio)}`);                    items.push(`<li>${l.querySelector(".cantidad").value} × ${s.nombre}`
+                        + (extras.length ? ` (${extras.join(", ")})` : "")
+                        + ` — ${dinero(precioLinea(l))}</li>`);
+                });
+                const nombre = document.getElementById("nombre").value.trim();
+                const email = document.getElementById("email").value.trim();
+                confirmacion.innerHTML = `
+                    <h3>¡Cotización enviada!</h3>
+                    <p>Gracias, <strong></strong>. Recibimos tu cotización y te responderemos a <strong class="correo"></strong>.</p>
+                    <ul>${items.join("")}</ul>
+                    <p><strong>Total: ${dinero(calcular())}</strong></p>`;
+                // textContent evita insertar HTML escrito por el usuario
+                confirmacion.querySelector("strong").textContent = nombre;
+                confirmacion.querySelector(".correo").textContent = email;
+                confirmacion.hidden = false;
+                confirmacion.scrollIntoView({ behavior: "smooth", block: "center" });
+            }
+
+            // Eventos
+            document.getElementById("agregar").addEventListener("click", agregarProducto);
+
+            contProductos.addEventListener("input", calcular);
+            contProductos.addEventListener("change", calcular);
+            contProductos.addEventListener("click", ev => {
+                if (ev.target.classList.contains("quitar")) {
+                    ev.target.closest(".producto").remove();
+                    renumerar();
+                    calcular();
+                }
+            });
+
+            form.addEventListener("submit", ev => {
+                ev.preventDefault();
+                confirmacion.hidden = true;
+                if (validar()) {
+                    mostrarConfirmacion();
+                } else {
+                    const primero = form.querySelector(".invalido input, .invalido select");
+                    if (primero) primero.focus();
+                }
+            });
+
+            document.getElementById("cancelar").addEventListener("click", () => {
+                form.reset();
+                confirmacion.hidden = true;
+                window.location.href = "index.html";
+            });
+
+            // Inicia con 2 servicios (mínimo)
+            agregarProducto();
+            agregarProducto();
+        </script>
+    </body>
+</html>
